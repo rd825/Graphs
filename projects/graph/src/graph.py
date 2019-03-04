@@ -121,7 +121,22 @@ class Graph:
                 for neighbor in self.vertices[vertex]:
                     if neighbor not in visited:
                         queue.enqueue(neighbor)
-        print(f'path to {target} vertex not found')
+        print(f'path to {target} vertex not found (BFS)')
+
+    def dfs(self, start_vertex, target):
+        stack = Stack()
+        visited = []
+        stack.push(start_vertex)
+        while stack.size() > 0:
+            vertex = stack.pop()
+            if vertex not in visited:
+                visited.append(vertex)
+                if vertex == target:
+                    return visited
+                for neigbor in self.vertices[vertex]:
+                    if neigbor not in visited:
+                        stack.push(neigbor)
+        print(f'path to {target} vertex not found (DFS)')
 
 
 graph = Graph()  # Instantiate your graph
@@ -140,4 +155,5 @@ print('\n\nDFT:')
 print(graph.dft('0'))
 print('\n\nDFT Recursive:')
 print(graph.dft_recursive('0'))
-print(graph.bfs("0", "2"))
+print(graph.bfs("0", "1"))
+print(graph.dfs("3", "1"))
