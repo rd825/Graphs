@@ -99,6 +99,15 @@ class Graph:
                 for neighbor in self.vertices[v]:
                     s.push(neighbor)
 
+    def dft_recursive(self, start_vertex, visited=None):
+        if visited is None:
+            visited = []
+        visited.append(start_vertex)
+        for neighbor in self.vertices[start_vertex]:
+            if neighbor not in visited:
+                self.dft_recursive(neighbor, visited)
+        return visited
+
 
 graph = Graph()  # Instantiate your graph
 graph.add_vertex('0')
@@ -110,3 +119,9 @@ graph.add_edge('0', '3')
 print(graph.vertices)
 # Continuing from previous example
 # graph.add_edge('0', '4')  # No '4' vertex, should raise an Exception!
+print('\n\nBFT:')
+print(graph.bft('0'))
+print('\n\nDFT:')
+print(graph.dft('0'))
+print('\n\nDFT Recursive:')
+print(graph.dft_recursive('0'))
