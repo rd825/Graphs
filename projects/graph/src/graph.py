@@ -108,6 +108,21 @@ class Graph:
                 self.dft_recursive(neighbor, visited)
         return visited
 
+    def bfs(self, start_vertex, target):
+        queue = Queue()
+        visited = []
+        queue.enqueue(start_vertex)
+        while queue.size() > 0:  # base case
+            vertex = queue.dequeue()  # leads to base case
+            if vertex not in visited:
+                visited.append(vertex)
+                if vertex == target:
+                    return visited
+                for neighbor in self.vertices[vertex]:
+                    if neighbor not in visited:
+                        queue.enqueue(neighbor)
+        print(f'path to {target} vertex not found')
+
 
 graph = Graph()  # Instantiate your graph
 graph.add_vertex('0')
@@ -125,3 +140,4 @@ print('\n\nDFT:')
 print(graph.dft('0'))
 print('\n\nDFT Recursive:')
 print(graph.dft_recursive('0'))
+print(graph.bfs("0", "2"))
