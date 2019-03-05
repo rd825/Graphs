@@ -1,5 +1,21 @@
 from random import randint
-from queue import *
+
+
+class Queue():
+    def __init__(self):
+        self.queue = []
+
+    def enqueue(self, value):
+        self.queue.append(value)
+
+    def dequeue(self):
+        if self.size() > 0:
+            return self.queue.pop(0)
+        else:
+            return None
+
+    def size(self):
+        return (len(self.queue))
 
 
 class User:
@@ -90,6 +106,25 @@ class SocialGraph:
         """
         visited = {}  # Note that this is a dictionary, not a set
         # !!!! IMPLEMENT ME
+        if userID not in self.friendships:
+            return None
+
+        queue = Queue()
+        queue.enqueue([userID])
+
+        while queue.size() > 0:
+            path = queue.dequeue()
+            node = path[-1]  # last node in path
+
+            if node not in visited:
+                visited[node] = path
+
+                for next_node in self.friendships[node]:
+                    new_path = path.copy()
+                    new_path.append(next_node)
+
+                    queue.enqueue(new_path)
+
         return visited
 
 
@@ -99,7 +134,3 @@ if __name__ == '__main__':
     print(sg.friendships)
     connections = sg.getAllSocialPaths(1)
     print(connections)
-
-sg = SocialGraph()
-sg.populateGraph(10, 2)  # Creates 10 users with an average of 2 friends each
-print(sg.friendships)
