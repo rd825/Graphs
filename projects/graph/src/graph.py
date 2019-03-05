@@ -110,18 +110,21 @@ class Graph:
 
     def bfs(self, start_vertex, target):
         queue = Queue()
-        visited = []
-        queue.enqueue(start_vertex)
+        queue.enqueue([start_vertex])
+        visited = set()
         while queue.size() > 0:  # base case
-            vertex = queue.dequeue()  # leads to base case
+            path = queue.dequeue()  # leads to base case
+            vertex = path[-1]
             if vertex not in visited:
-                visited.append(vertex)
+                visited.add(vertex)
                 if vertex == target:
-                    return visited
+                    return path
+                visited.add(vertex)
                 for neighbor in self.vertices[vertex]:
-                    if neighbor not in visited:
-                        queue.enqueue(neighbor)
-        print(f'path to {target} vertex not found (BFS)')
+                    new_path = list(path)
+                    new_path.append(neighbor)
+                    queue.enqueue(new_path)
+        return None
 
     def dfs(self, start_vertex, target):
         stack = Stack()
