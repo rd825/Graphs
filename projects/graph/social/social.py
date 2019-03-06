@@ -114,14 +114,14 @@ class SocialGraph:
 
         while queue.size() > 0:
             path = queue.dequeue()
-            node = path[-1]  # last node in path
+            newUserID = path[-1]  # last newUserID in path
 
-            if node not in visited:
-                visited[node] = path
+            if newUserID not in visited:
+                visited[newUserID] = path
 
-                for next_node in self.friendships[node]:
+                for friendID in self.friendships[newUserID]:
                     new_path = path.copy()
-                    new_path.append(next_node)
+                    new_path.append(friendID)
 
                     queue.enqueue(new_path)
 
@@ -134,3 +134,9 @@ if __name__ == '__main__':
     print(sg.friendships)
     connections = sg.getAllSocialPaths(1)
     print(connections)
+    print("*******")
+    print(len(connections))
+    total_len = 0
+    for friendID in connections:
+        total_len += len(connections[friendID])
+    print(f'AVG LENGTH: {total_len / len(connections)}')

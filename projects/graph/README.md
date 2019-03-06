@@ -114,13 +114,15 @@ Note that in this sample, Users 3, 4 and 9 are not in User 1's extended social n
 ## 3. Questions
 
 1. To create 100 users with an average of 10 friends each, how many times would you need to call `addFriendship()`? Why? <br/>
-   We'd use total_friendships = (numUsers _ avgFriendships) // 2 or (100 _ 10) // 2 = 500.
+   We'd use total_friendships = (numUsers x avgFriendships) // 2 or (100 x 10) // 2 = 500.
    <br/><br/>
 
 2. If you create 1000 users with an average of 5 random friends each, what percentage of other users will be in a particular user's extended social network? What is the average degree of separation between a user and those in his/her extended network?<br/>
+   We'll expect that a given user will have 99% of the entire social network in their extended connections. The average degree of separation will be around 5.
 
 ## 4. Stretch Goal
 
 1. You might have found the results from question #2 above to be surprising. Would you expect results like this in real life? If not, what are some ways you could improve your friendship distribution model for more realistic results?
+   Humans don't all have the same number of friends. Also, friendships are not randomly distributed in a given population, people are more clustered together and self-organize into cliques. These might not touch each other at all.
 
 2. If you followed the hints for part 1, your `populateGraph()` will run in O(n^2) time. Refactor your code to run in O(n) time. Are there any tradeoffs that come with this implementation?
